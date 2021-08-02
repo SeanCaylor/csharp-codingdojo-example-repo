@@ -21,11 +21,21 @@ namespace MessageBoardOOP
 
             MessageBoard doggos = new MessageBoard("Doggos");
 
-            Console.WriteLine(stonks.Name);
-            Console.WriteLine(stonks.Topic);
-            Console.WriteLine(stonks.CreatedAt);
+            User highMylage = new User("Myles", "W", 25);
+            User james = new User("James", "A", 27);
+            User echo = new User("Echo", "T", 22);
+            User theLaw = new User("Lawrence", "C", 38);
 
-            Console.WriteLine(doggos.Topic);
+            highMylage.SendMessage("I'm holding bitcoin forever, no paper hands here!", stonks);
+
+            james.SendMessage("Lol, BTC is worth exactly zero you dummies!", stonks);
+            echo.SendMessage("Aussies are my favorite kind of doggo.", doggos);
+            theLaw.SendMessage("Huskies are better than Aussies. I love drama queens!", doggos);
+            theLaw.SendMessage("Basenjis don't bark, they yodel.", doggos);
+            theLaw.SendMessage("Eth is going to be worth more than BTC you crazy maximalists.", stonks);
+
+            Console.WriteLine(theLaw.NumberOfMessageBoardsUsed());
+            Console.WriteLine(doggos.GetMostActiveUser());
         }
     }
 }

@@ -34,5 +34,34 @@ namespace MessageBoardOOP
             Name = name;
             Topic = name;
         }
+
+        // Based on number of messages sent.
+        public User GetMostActiveUser()
+        {
+            // We need a count for every user who sent a message to find out
+            // which user sent the most.
+            Dictionary<User, int> userMessageCounts = new Dictionary<User, int>();
+            int max = 0;
+            User mostActive = null;
+
+            foreach (Message msg in this.Messages)
+            {
+                if (userMessageCounts.ContainsKey(msg.Author))
+                {
+                    userMessageCounts[msg.Author]++;
+                }
+                else
+                {
+                    userMessageCounts.Add(msg.Author, 1);
+                }
+
+                if (userMessageCounts[msg.Author] > max)
+                {
+                    max = userMessageCounts[msg.Author];
+                    mostActive = msg.Author;
+                }
+            }
+            return mostActive;
+        }
     }
 }
