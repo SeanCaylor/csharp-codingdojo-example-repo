@@ -73,23 +73,45 @@ class SinglyLinkedList {
     return arr;
   }
 
+  printArr() {
+    console.log(this.toArr());
+  }
+
   /**
    * Determines if this list is empty.
-   * - Time: (?).
-   * - Space: (?).
+   * - Time: O(1) constant.
+   * - Space: O(1) constant.
    * @returns {boolean}
    */
-  isEmpty() {}
+  isEmpty() {
+    return this.head === null;
+  }
 
   /**
    * Creates a new node with the given data and inserts it at the back of
    * this list.
-   * - Time: (?).
-   * - Space: (?).
+   * - Time: O(n) linear.
+   * - Space: O(1) constant.
    * @param {any} data The data to be added to the new node.
    * @returns {SinglyLinkedList} This list.
    */
-  insertAtBack(data) {}
+  insertAtBack(data) {
+    const newBack = new Node(data);
+
+    if (this.isEmpty()) {
+      this.head = newBack;
+      return this;
+    }
+
+    let runner = this.head;
+
+    while (runner.next !== null) {
+      runner = runner.next;
+    }
+
+    runner.next = newBack;
+    return this;
+  }
 }
 
 const emptyList = new SinglyLinkedList();
@@ -113,3 +135,7 @@ loopList.head.next.next.next = loopList.head.next;
 const sortedDupeList = new SinglyLinkedList().seedFromArr([
   1, 1, 1, 2, 3, 3, 4, 5, 5,
 ]);
+
+emptyList.printArr();
+emptyList.insertAtBack(1).insertAtBack(2).insertAtBack(3);
+emptyList.printArr();
