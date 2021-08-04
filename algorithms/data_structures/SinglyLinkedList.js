@@ -173,16 +173,16 @@ class SinglyLinkedList {
 
   /**
    * Removes the last node of this list.
-   * - Time: (?).
-   * - Space: (?).
+   * - Time: O(?).
+   * - Space: O(?).
    * @returns {any} The data from the node that was removed.
    */
   removeBack() {}
 
   /**
    * Determines whether or not the given search value exists in this list.
-   * - Time: (?).
-   * - Space: (?).
+   * - Time: O(?).
+   * - Space: O(?).
    * @param {any} val The data to search for in the nodes of this list.
    * @returns {boolean}
    */
@@ -190,8 +190,8 @@ class SinglyLinkedList {
 
   /**
    * Determines whether or not the given search value exists in this list.
-   * - Time: (?).
-   * - Space: (?).
+   * - Time: O(?).
+   * - Space: O(?).
    * @param {any} val The data to search for in the nodes of this list.
    * @param {?node} current The current node during the traversal of this list
    *    or null when the end of the list has been reached.
