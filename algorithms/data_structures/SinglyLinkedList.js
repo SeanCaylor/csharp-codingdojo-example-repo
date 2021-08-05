@@ -296,32 +296,99 @@ class SinglyLinkedList {
 
   /**
    * Retrieves the data of the second to last node in this list.
-   * - Time: O(?).
-   * - Space: O(?).
+   * - Time: O(n - 1) n = list length -> O(n) linear.
+   * - Space: O(1) constant.
    * @returns {any} The data of the second to last node or null if there is no
    *    second to last node.
    */
-  secondToLast() {}
+  secondToLast() {
+    if (!this.head || !this.head.next) {
+      return null;
+    }
+
+    // There are at least 2 nodes since the above return hasn't happened.
+    let runner = this.head;
+
+    while (runner.next.next) {
+      runner = runner.next;
+    }
+    return runner.data;
+  }
 
   /**
-   * Removes the node that has the matching given val as it's data.
-   * - Time: O(?).
-   * - Space: O(?).
+   * Removes the node that has the given val.
+   * - Time: O(n) linear, n = list length since the last node could be the one
+   *    that is removed.
+   * - Space: O(1) constant.
    * @param {any} val The value to compare to the node's data to find the
    *    node to be removed.
    * @returns {boolean} Indicates if a node was removed or not.
    */
-  removeVal(val) {}
+  removeVal(val) {
+    if (this.isEmpty()) {
+      return false;
+    }
+
+    if (this.head.data === val) {
+      this.head = this.head.next;
+      return true;
+    }
+
+    let runner = this.head;
+
+    while (runner.next && runner.next.data !== val) {
+      runner = runner.next;
+    }
+
+    // Runner may be last node without having found val, so check to make sure
+    // We found it.
+    if (runner.next && runner.next.data === val) {
+      runner.next = runner.next.next;
+      return true;
+    }
+    return false;
+  }
 
   /**
-   * Inserts a new node before a node that has the given value as its data.
-   * - Time: O(?).
-   * - Space: O(?).
+   * Inserts a new node before a node with that has a specified value.
+   * - Time: O(n) linear, n = list length, because we could end up pre-pending
+   *    to the last node.
+   * - Space: O(1) constant.
    * @param {any} newVal The value to use for the new node that is being added.
    * @param {any} targetVal The value to use to find the node that the newVal
    *    should be inserted in front of.
+   * @returns {boolean} To indicate whether the node was pre-pended or not.
    */
-  prepend(newVal, targetVal) {}
+  prepend(newVal, targetVal) {
+    const newNode = new Node(newVal);
+
+    if (this.isEmpty()) {
+      return false;
+    }
+
+    if (this.head.data === targetVal) {
+      newNode.next = this.head;
+      this.head = newNode;
+      return true;
+    }
+
+    // we already know we're not going to need to prepend before the head
+    let runner = this.head;
+
+    while (runner) {
+      // End of list and not found.
+      if (runner.next === null) {
+        return false;
+      }
+
+      if (runner.next.data === targetVal) {
+        newNode.next = runner.next;
+        runner.next = newNode;
+        return true;
+      }
+      runner = runner.next;
+    }
+  }
 }
 
 const emptyList = new SinglyLinkedList();

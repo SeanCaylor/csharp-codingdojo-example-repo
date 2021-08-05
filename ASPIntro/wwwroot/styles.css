@@ -1,0 +1,12 @@
+.bg-dark {
+  background-color: black;
+}
+
+.text-light {
+  color: ivory;
+}
+
+.container {
+  margin-left: 10%;
+  margin-right: 10%;
+}
