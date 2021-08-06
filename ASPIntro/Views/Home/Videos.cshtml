@@ -1,3 +1,13 @@
+@*
+  Use a lowercase 'm' to specify what data the model is
+  Use an uppercase 'M' to retrieve the data.
+*@
+
+@* @model ASPIntro.Models.VideosView *@
+
+@* This require Views/_ViewImports.cshtml *@
+@model VideosView
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,10 +23,11 @@
 
   <h2>Cool Videos</h2>
   <a href="/">Home</a>
-  <p>Random Number: @ViewBag.RandomNumber</p>
+  <p>@ViewBag.Message</p>
+  <p>Random Number: @Model.RandomNumber</p>
 
   <div>
-    @foreach (string id in ViewBag.YoutubeVideoIds)
+    @foreach (string id in Model.YoutubeVideoIds)
     {
       string someVar = "hi";
 
@@ -27,9 +38,9 @@
 
     }
 
-    <video controls>
+    @* <video controls>
       <source src="~/Left-Hand-Climbing.mp4" type="video/mp4">
-    </video>
+      </video> *@
 
   </div>
 </body>

@@ -1,3 +1,6 @@
+@* The model here is the data that is being displayed *@
+@model User
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,13 +8,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cool Videos</title>
+  <title>Register</title>
   <link rel="stylesheet" href="~/styles.css">
+
 </head>
 
 <body class="bg-dark text-light container">
-  <h1>Welcome Home</h1>
-  <a href="/videos">Videos</a> | <a href="/users/register">Register</a> | <a href="/users/register2">Register2</a>
+  <h2>Welcome @Model.FullName()</h2>
 </body>
 
 </html>

@@ -1,0 +1,29 @@
+@* The model here is the data that is being POSTed *@
+@model User
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="~/styles.css">
+
+</head>
+
+<body class="bg-dark text-light container">
+  <h2>Register</h2>
+  <form action="/users/process-registration" method="POST">
+    <label>First Name</label>
+    @* The name attr NEEDS to match a prop name from the Model. *@
+    <input type="text" name="FirstName">
+
+    <label>Last Name</label>
+    <input type="text" name="LastName">
+    <button>Submit</button>
+  </form>
+</body>
+
+</html>
