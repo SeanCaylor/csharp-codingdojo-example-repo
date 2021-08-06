@@ -5,3 +5,8 @@
 ## [Week 1 - Singly Linked Lists](../data_structures/SinglyLinkedList.js)
 
 - [Intro](../data_structures/SinglyLinkedListIntro.js)
+
+## Extra Algos
+
+- [displayFolderStructure](../recursion/displayFolderStructure/displayFolderStructure.js)
+- [questionMarks](../strings/questionMarks.js)
