@@ -36,6 +36,7 @@ namespace ASPIntro.Controllers
             };
 
             return View("Videos", viewModel);
+            // return render_template("Videos", view_model={"video_ids": ["one", "two"], "message": "lol"})
         }
 
         // 1. Get the page with the registration <form>
