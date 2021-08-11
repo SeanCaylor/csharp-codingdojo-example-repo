@@ -1,0 +1,24 @@
+@*
+  @model lowercase m to specify the data type of the view model
+  @Model capital m to access the data
+*@
+
+@model List<Post>
+
+<h2 class="text-center">All Posts</h2>
+
+@foreach (Post post in Model)
+{
+  <div class="card shadow rounded mx-auto w-75 mb-3">
+    <h4 class="card-title text-center bg-dark text-light py-2 rounded-top">
+      @post.Topic
+    </h4>
+
+    <div class="card-body">
+      <p class="card-text">@post.Body</p>
+      <small class="text-muted">Submitted on: @post.CreatedAt</small>
+    </div>
+
+    <img class="card-img-bottom" src="@post.ImgUrl" alt="Post">
+  </div>
+}
