@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ForumDemo.Models;
@@ -44,6 +45,81 @@ namespace ForumDemo.Controllers
         {
             List<Post> allPosts = db.Posts.ToList();
             return View("All", allPosts);
+        }
+
+        [HttpGet("/posts/{postId}")]
+        public IActionResult Details(int postId)
+        {
+            Post post = db.Posts.FirstOrDefault(p => p.PostId == postId);
+
+            if (post == null)
+            {
+                return RedirectToAction("All");
+            }
+
+            return View("Details", post);
+        }
+
+        [HttpPost("/posts/{postId}/delete")]
+        public IActionResult Delete(int postId)
+        {
+            Post post = db.Posts.FirstOrDefault(p => p.PostId == postId);
+
+            if (post == null)
+            {
+                return RedirectToAction("All");
+            }
+
+            db.Posts.Remove(post);
+            db.SaveChanges();
+            return RedirectToAction("All");
+        }
+
+        [HttpGet("/posts/{postId}/edit")]
+        public IActionResult Edit(int postId)
+        {
+            Post post = db.Posts.FirstOrDefault(p => p.PostId == postId);
+
+            if (post == null)
+            {
+                return RedirectToAction("All");
+            }
+
+            return View("Edit", post);
+        }
+
+        [HttpPost("/posts/{postId}/update")]
+        public IActionResult Update(int postId, Post editedPost)
+        {
+            if (ModelState.IsValid == false)
+            {
+                editedPost.PostId = postId;
+                // Send back to the page with the current form edited data to
+                // display errors.
+                return View("Edit", editedPost);
+            }
+
+            Post dbPost = db.Posts.FirstOrDefault(p => p.PostId == postId);
+
+            if (dbPost == null)
+            {
+                return RedirectToAction("All");
+            }
+
+            dbPost.Topic = editedPost.Topic;
+            dbPost.Body = editedPost.Body;
+            dbPost.ImgUrl = editedPost.ImgUrl;
+            dbPost.UpdatedAt = DateTime.Now;
+
+            db.Posts.Update(dbPost);
+            db.SaveChanges();
+
+            /* 
+            When redirecting to action that has params, you need to pass in a
+            dict with keys that match param names and the value of the keys are
+            the values for the params.
+            */
+            return RedirectToAction("Details", new { postId = postId });
         }
     }
 }

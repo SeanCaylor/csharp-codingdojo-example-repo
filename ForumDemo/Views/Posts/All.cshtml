@@ -11,7 +11,13 @@
 {
   <div class="card shadow rounded mx-auto w-75 mb-3">
     <h4 class="card-title text-center bg-dark text-light py-2 rounded-top">
-      @post.Topic
+
+      @*
+        asp-route-paramName where paramName matches exactly the param name from
+        the controller action (method).
+      *@
+      <a asp-controller="Posts" asp-action="Details" asp-route-postId="@post.PostId">@post.Topic</a>
+      @* <a href="/posts/@post.PostId">@post.Topic</a> *@
     </h4>
 
     <div class="card-body">
