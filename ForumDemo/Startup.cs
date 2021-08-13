@@ -28,7 +28,10 @@ namespace ForumDemo
             {
                 dbCtxOptions.UseMySql(Configuration["DBInfo:ConnectionString"], mySqlOptions => mySqlOptions.EnableRetryOnFailure());
             });
-            // to access session directly from view, corresponds with: @using Microsoft.AspNetCore.Http in Views/_ViewImports.cshtml
+
+            // to access session directly from view, corresponds with:
+            // @using Microsoft.AspNetCore.Http in Views/_ViewImports.cshtml
+            // Example: <p>@Context.Session.GetString("Username")</p>
             services.AddHttpContextAccessor();
             services.AddSession();
             services.AddMvc(options => options.EnableEndpointRouting = false);
