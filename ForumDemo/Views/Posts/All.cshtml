@@ -22,7 +22,11 @@
 
     <div class="card-body">
       <p class="card-text">@post.Body</p>
-      <small class="text-muted">Submitted on: @post.CreatedAt</small>
+      <small class="text-muted">
+        Submitted on: @post.CreatedAt by <a asp-controller="Home" asp-action="Details" asp-route-userId="@post.UserId">
+          @post.Author.FullName()
+        </a>
+      </small>
     </div>
 
     <img class="card-img-bottom" src="@post.ImgUrl" alt="Post">

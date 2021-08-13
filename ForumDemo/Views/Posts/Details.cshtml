@@ -1,5 +1,9 @@
 @model Post
 
+@* @{
+  int? uid = Context.Session.GetInt32("UserId");
+  } *@
+
 <div class="card shadow rounded mx-auto mb-3">
   <h4 class="card-title text-center bg-dark text-light py-2 rounded-top">
     @Model.Topic
@@ -7,17 +11,24 @@
 
   <div class="card-body">
     <p class="card-text">@Model.Body</p>
-    <small class="text-muted">Submitted on: @Model.CreatedAt</small>
+    <small class="text-muted">Submitted on: @Model.CreatedAt by @Model.Author.FullName()</small>
   </div>
 
   <img class="card-img-bottom" src="@Model.ImgUrl" alt="Post">
 
-  <div class="row justify-content-center p-3">
-    <form asp-controller="Posts" asp-action="Delete" asp-route-postId="@Model.PostId" method="POST">
-      <button class="btn btn-outline-danger btn-sm">Delete</button>
-    </form>
+  @* Hide edit & delete if not the author *@
+  @if (Model.UserId == Context.Session.GetInt32("UserId"))
+  {
+    <div class="row justify-content-center p-3">
 
-    <a asp-controller="Posts" asp-action="Edit" asp-route-postId="@Model.PostId"
-      class="btn btn-sm btn-outline-warning ml-2">Edit</a>
-  </div>
+      <form asp-controller="Posts" asp-action="Delete" asp-route-postId="@Model.PostId" method="POST">
+        <button class="btn btn-outline-danger btn-sm">Delete</button>
+      </form>
+
+      <a asp-controller="Posts" asp-action="Edit" asp-route-postId="@Model.PostId"
+      class="btn btn-sm btn-outline-warning ml-2">
+        Edit
+      </a>
+    </div>
+  }
 </div>

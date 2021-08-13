@@ -2,13 +2,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ForumDemo.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ForumDemo.Controllers
 {
     public class PostsController : Controller
     {
         private ForumDemoContext db;
+
+        private int? uid
+        {
+            get
+            {
+                return HttpContext.Session.GetInt32("UserId");
+            }
+        }
+
+        private bool isLoggedIn
+        {
+            get
+            {
+                return uid != null;
+            }
+        }
+
         public PostsController(ForumDemoContext context)
         {
             db = context;
@@ -18,6 +37,11 @@ namespace ForumDemo.Controllers
         [HttpGet("/posts/new")]
         public IActionResult New()
         {
+            if (!isLoggedIn)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View("New");
         }
 
@@ -32,6 +56,8 @@ namespace ForumDemo.Controllers
                 return View("New");
             }
 
+            newPost.UserId = (int)uid; // Relate the author to the post.
+
             // The above return did not happen so ModelState IS valid.
             db.Posts.Add(newPost);
             // db doesn't update until we run save changes
@@ -43,14 +69,36 @@ namespace ForumDemo.Controllers
         [HttpGet("/posts")]
         public IActionResult All()
         {
-            List<Post> allPosts = db.Posts.ToList();
+            if (!isLoggedIn)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            List<Post> allPosts = db.Posts
+                // Select what navigation properties from a Post you want to be included (JOIN).
+                .Include(post => post.Author) // hover over the param to see it's data type
+                .ToList();
             return View("All", allPosts);
+
+            /* 
+            The db.Posts and the .Include did this:
+
+            SELECT * FROM posts AS p
+            JOIN users AS u ON u.UserId = p.UserId
+            */
         }
 
         [HttpGet("/posts/{postId}")]
         public IActionResult Details(int postId)
         {
-            Post post = db.Posts.FirstOrDefault(p => p.PostId == postId);
+            if (!isLoggedIn)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Post post = db.Posts
+                .Include(post => post.Author)
+                .FirstOrDefault(p => p.PostId == postId);
 
             if (post == null)
             {
@@ -80,7 +128,10 @@ namespace ForumDemo.Controllers
         {
             Post post = db.Posts.FirstOrDefault(p => p.PostId == postId);
 
-            if (post == null)
+            // The edit button will be hidden if you are not the author,
+            // but the user could still type the URL in manually, so
+            // prevent them from editing if they are not the author.
+            if (post == null || post.UserId != uid)
             {
                 return RedirectToAction("All");
             }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -35,5 +36,16 @@ namespace ForumDemo.Models
         public string PasswordConfirm { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
+        /* Relationship properties: Foreign Keys & Navigation Properties */
+
+        // Navigation Prop: 1 User : Many Post
+        public List<Post> Posts { get; set; }
+
+        // Methods
+        public string FullName()
+        {
+            return FirstName + " " + LastName;
+        }
     }
 }
