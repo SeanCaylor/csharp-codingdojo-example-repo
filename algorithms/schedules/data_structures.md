@@ -77,3 +77,5 @@
   - A priority queue item could be any data type.
 
 ## [Week 3 - Binary Search Tree](../data_structures/BinarySearchTree.js)
+
+- [BST Intro](../data_structures/BinarySearchTree.md)
