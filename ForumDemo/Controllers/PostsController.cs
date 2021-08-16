@@ -77,6 +77,7 @@ namespace ForumDemo.Controllers
             List<Post> allPosts = db.Posts
                 // Select what navigation properties from a Post you want to be included (JOIN).
                 .Include(post => post.Author) // hover over the param to see it's data type
+                .Include(post => post.Likes)
                 .ToList();
             return View("All", allPosts);
 
@@ -98,6 +99,10 @@ namespace ForumDemo.Controllers
 
             Post post = db.Posts
                 .Include(post => post.Author)
+                .Include(post => post.Likes)
+                // Include something from the last thing that was included.
+                // Include the User from the likes (hover over like param to see data type)
+                .ThenInclude(like => like.User)
                 .FirstOrDefault(p => p.PostId == postId);
 
             if (post == null)
@@ -171,6 +176,37 @@ namespace ForumDemo.Controllers
             the values for the params.
             */
             return RedirectToAction("Details", new { postId = postId });
+        }
+
+        [HttpPost("/posts/{postId}/like")]
+        public IActionResult Like(int postId)
+        {
+            if (!isLoggedIn)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            UserPostLike existingLike = db.UserPostLikes
+                .FirstOrDefault(like => like.UserId == (int)uid && like.PostId == postId);
+
+            if (existingLike == null)
+            {
+                UserPostLike like = new UserPostLike()
+                {
+                    PostId = postId,
+                    UserId = (int)uid
+                };
+
+                db.UserPostLikes.Add(like);
+            }
+            else
+            {
+                db.UserPostLikes.Remove(existingLike);
+            }
+
+
+            db.SaveChanges();
+            return RedirectToAction("All");
         }
     }
 }

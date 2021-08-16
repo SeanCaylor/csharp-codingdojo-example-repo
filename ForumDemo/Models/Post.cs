@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ForumDemo.Models
@@ -23,9 +24,14 @@ namespace ForumDemo.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-        /* Relationship properties: Foreign Keys & Navigation Properties */
+        /* 
+        Foreign Keys and Navigation Properties for Relationships
+
+        Navigation properties are null unless you use .Include / .ThenInclude
+        */
         public int UserId { get; set; } // FK 1 User : Many Post
         // Navigation Property for 1 User : Many Post
         public User Author { get; set; }
+        public List<UserPostLike> Likes { get; set; } // 1 user can like many posts
     }
 }

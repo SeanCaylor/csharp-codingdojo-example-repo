@@ -7,8 +7,16 @@
 
 <h2 class="text-center">All Posts</h2>
 
+@{
+  Post emptyPost = new Post();
+}
+<partial name="_NewPost" model="@emptyPost"></partial>
+@* <partial name="_NewPost" model="@new Post()"></partial> *@
+
 @foreach (Post post in Model)
 {
+  bool alreadyLiked = post.Likes.Any(like => Context.Session.GetInt32("UserId") == like.UserId);
+
   <div class="card shadow rounded mx-auto w-75 mb-3">
     <h4 class="card-title text-center bg-dark text-light py-2 rounded-top">
 
@@ -27,7 +35,23 @@
           @post.Author.FullName()
         </a>
       </small>
+      <form asp-controller="Posts" asp-action="Like" asp-route-postId="@post.PostId">
+        <button class="btn btn-link">
+          @if (alreadyLiked)
+          {
+            @* Thumbs up icon. *@
+            <span>&#128078;</span>
+          }
+          else
+          {
+            <span>&#128077;</span>
+          }
+          <span>(@post.Likes.Count)</span>
+        </button>
+      </form>
     </div>
+
+
 
     <img class="card-img-bottom" src="@post.ImgUrl" alt="Post">
   </div>

@@ -37,10 +37,15 @@ namespace ForumDemo.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-        /* Relationship properties: Foreign Keys & Navigation Properties */
+        /* 
+        Foreign Keys and Navigation Properties for Relationships
+
+        Navigation properties are null unless you use .Include / .ThenInclude
+        */
 
         // Navigation Prop: 1 User : Many Post
         public List<Post> Posts { get; set; }
+        public List<UserPostLike> Likes { get; set; } // 1 user can like many posts
 
         // Methods
         public string FullName()

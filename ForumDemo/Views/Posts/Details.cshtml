@@ -31,4 +31,18 @@
       </a>
     </div>
   }
+
+  <div>
+    <h3>Likes</h3>
+    @foreach (UserPostLike like in Model.Likes)
+    {
+      @* Doing it manually will leave a trailing ", " at the end. *@
+      <span>@like.User.FullName(), </span>
+    }
+
+    <h3>Likes with String.Join</h3>
+    <span>
+      @String.Join(", ", Model.Likes.Select(like => like.User.FullName()))
+    </span>
+  </div>
 </div>
