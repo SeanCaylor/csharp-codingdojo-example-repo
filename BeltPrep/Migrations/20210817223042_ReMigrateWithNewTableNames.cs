@@ -4,12 +4,30 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BeltPrep.Migrations
 {
-    public partial class InitialRelationships : Migration
+    public partial class ReMigrateWithNewTableNames : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "DestinationMedia",
+                name: "Users",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.UserId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DestinationMedias",
                 columns: table => new
                 {
                     DestinationMediaId = table.Column<int>(nullable: false)
@@ -24,9 +42,9 @@ namespace BeltPrep.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DestinationMedia", x => x.DestinationMediaId);
+                    table.PrimaryKey("PK_DestinationMedias", x => x.DestinationMediaId);
                     table.ForeignKey(
-                        name: "FK_DestinationMedia_Users_UserId",
+                        name: "FK_DestinationMedias_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -34,7 +52,7 @@ namespace BeltPrep.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Trip",
+                name: "Trips",
                 columns: table => new
                 {
                     TripId = table.Column<int>(nullable: false)
@@ -48,9 +66,9 @@ namespace BeltPrep.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Trip", x => x.TripId);
+                    table.PrimaryKey("PK_Trips", x => x.TripId);
                     table.ForeignKey(
-                        name: "FK_Trip_Users_UserId",
+                        name: "FK_Trips_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -58,7 +76,7 @@ namespace BeltPrep.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TripDestination",
+                name: "TripDestinations",
                 columns: table => new
                 {
                     TripDestinationId = table.Column<int>(nullable: false)
@@ -70,23 +88,23 @@ namespace BeltPrep.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TripDestination", x => x.TripDestinationId);
+                    table.PrimaryKey("PK_TripDestinations", x => x.TripDestinationId);
                     table.ForeignKey(
-                        name: "FK_TripDestination_DestinationMedia_DestinationMediaId",
+                        name: "FK_TripDestinations_DestinationMedias_DestinationMediaId",
                         column: x => x.DestinationMediaId,
-                        principalTable: "DestinationMedia",
+                        principalTable: "DestinationMedias",
                         principalColumn: "DestinationMediaId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TripDestination_Trip_TripId",
+                        name: "FK_TripDestinations_Trips_TripId",
                         column: x => x.TripId,
-                        principalTable: "Trip",
+                        principalTable: "Trips",
                         principalColumn: "TripId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserTripLike",
+                name: "UserTripLikes",
                 columns: table => new
                 {
                     UserTripLikeId = table.Column<int>(nullable: false)
@@ -98,15 +116,15 @@ namespace BeltPrep.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserTripLike", x => x.UserTripLikeId);
+                    table.PrimaryKey("PK_UserTripLikes", x => x.UserTripLikeId);
                     table.ForeignKey(
-                        name: "FK_UserTripLike_Trip_TripId",
+                        name: "FK_UserTripLikes_Trips_TripId",
                         column: x => x.TripId,
-                        principalTable: "Trip",
+                        principalTable: "Trips",
                         principalColumn: "TripId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserTripLike_Users_UserId",
+                        name: "FK_UserTripLikes_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -114,49 +132,52 @@ namespace BeltPrep.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_DestinationMedia_UserId",
-                table: "DestinationMedia",
+                name: "IX_DestinationMedias_UserId",
+                table: "DestinationMedias",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Trip_UserId",
-                table: "Trip",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TripDestination_DestinationMediaId",
-                table: "TripDestination",
+                name: "IX_TripDestinations_DestinationMediaId",
+                table: "TripDestinations",
                 column: "DestinationMediaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TripDestination_TripId",
-                table: "TripDestination",
+                name: "IX_TripDestinations_TripId",
+                table: "TripDestinations",
                 column: "TripId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserTripLike_TripId",
-                table: "UserTripLike",
+                name: "IX_Trips_UserId",
+                table: "Trips",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserTripLikes_TripId",
+                table: "UserTripLikes",
                 column: "TripId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserTripLike_UserId",
-                table: "UserTripLike",
+                name: "IX_UserTripLikes_UserId",
+                table: "UserTripLikes",
                 column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "TripDestination");
+                name: "TripDestinations");
 
             migrationBuilder.DropTable(
-                name: "UserTripLike");
+                name: "UserTripLikes");
 
             migrationBuilder.DropTable(
-                name: "DestinationMedia");
+                name: "DestinationMedias");
 
             migrationBuilder.DropTable(
-                name: "Trip");
+                name: "Trips");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

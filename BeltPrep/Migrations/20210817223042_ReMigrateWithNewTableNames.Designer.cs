@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeltPrep.Migrations
 {
     [DbContext(typeof(BeltPrepContext))]
-    [Migration("20210817182903_InitialRelationships")]
-    partial class InitialRelationships
+    [Migration("20210817223042_ReMigrateWithNewTableNames")]
+    partial class ReMigrateWithNewTableNames
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,7 +55,7 @@ namespace BeltPrep.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("DestinationMedia");
+                    b.ToTable("DestinationMedias");
                 });
 
             modelBuilder.Entity("BeltPrep.Models.Trip", b =>
@@ -89,7 +89,7 @@ namespace BeltPrep.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Trip");
+                    b.ToTable("Trips");
                 });
 
             modelBuilder.Entity("BeltPrep.Models.TripDestination", b =>
@@ -116,7 +116,7 @@ namespace BeltPrep.Migrations
 
                     b.HasIndex("TripId");
 
-                    b.ToTable("TripDestination");
+                    b.ToTable("TripDestinations");
                 });
 
             modelBuilder.Entity("BeltPrep.Models.User", b =>
@@ -176,7 +176,7 @@ namespace BeltPrep.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserTripLike");
+                    b.ToTable("UserTripLikes");
                 });
 
             modelBuilder.Entity("BeltPrep.Models.DestinationMedia", b =>
