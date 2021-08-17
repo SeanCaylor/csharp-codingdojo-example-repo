@@ -1,1 +1,14 @@
-<h1>All Trips</h1>
+@model List<Trip>
+
+<h1 class="text-center">All Trips</h1>
+
+@foreach (Trip trip in Model)
+{
+  <div class="text-center w-75 mx-auto">
+    <hr>
+    <h4>
+      @trip.Name
+    </h4>
+    <p>@trip.Description</p>
+  </div>
+}

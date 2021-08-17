@@ -40,12 +40,14 @@ namespace BeltPrep.Controllers
         [HttpGet("/trips")]
         public IActionResult All()
         {
+
             if (!isLoggedIn)
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            return View("All");
+            List<Trip> trips = db.Trips.ToList();
+            return View("All", trips);
         }
 
         [HttpGet("/trips/new")]
