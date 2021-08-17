@@ -3,14 +3,16 @@ using System;
 using BeltPrep.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BeltPrep.Migrations
 {
     [DbContext(typeof(BeltPrepContext))]
-    partial class BeltPrepContextModelSnapshot : ModelSnapshot
+    [Migration("20210817182903_InitialRelationships")]
+    partial class InitialRelationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

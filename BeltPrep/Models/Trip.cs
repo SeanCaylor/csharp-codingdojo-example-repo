@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BeltPrep.Models
@@ -25,7 +26,7 @@ namespace BeltPrep.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-        /* 
+        /**********************************************************************
         Foreign Keys and Navigation Properties for Relationships
 
         Navigation properties are null unless you use .Include / .ThenInclude
@@ -33,5 +34,10 @@ namespace BeltPrep.Models
         public int UserId { get; set; } // 1 User : Many created trips.
         public User CreatedBy { get; set; }
 
+        // Many to Many: 1 User likes Many Trips, 1 Trip liked by Many Users
+        public List<UserTripLike> Likes { get; set; }
+
+        // Many : Many - 1 Trip can have many Destinations. 1 Destination can be part of many Trips.
+        public List<TripDestination> TripDestinations { get; set; }
     }
 }

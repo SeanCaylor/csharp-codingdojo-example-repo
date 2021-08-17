@@ -37,7 +37,7 @@ namespace BeltPrep.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-        /* 
+        /**********************************************************************
         Foreign Keys and Navigation Properties for Relationships
 
         Navigation properties are null unless you use .Include / .ThenInclude
@@ -46,6 +46,8 @@ namespace BeltPrep.Models
         public List<Trip> CreatedTrips { get; set; } // 1 User : Many Trip
         public List<DestinationMedia> CreatedDestinations { get; set; } // 1 User : Many DestinationMedia
 
+        // Many to Many: 1 User likes Many Trips, 1 Trip liked by Many Users
+        public List<UserTripLike> Likes { get; set; }
 
         // Methods
         public string FullName()
