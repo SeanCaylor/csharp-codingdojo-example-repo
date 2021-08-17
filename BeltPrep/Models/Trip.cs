@@ -9,13 +9,12 @@ namespace BeltPrep.Models
         [Key]
         public int TripId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "is required.")]
         [MinLength(2, ErrorMessage = "must be at least 2 characters.")]
         public string Name { get; set; }
 
-        [Required]
-        [MinLength(4, ErrorMessage = "must be at least 4 characters.")]
-        [MaxLength(255, ErrorMessage = "must be no more than 255 characters.")]
+        [Required(ErrorMessage = "is required.")]
+        [MinLength(10, ErrorMessage = "must be at least 10 characters.")]
         public string Description { get; set; }
 
         [Display(Name = "Trip Date")]

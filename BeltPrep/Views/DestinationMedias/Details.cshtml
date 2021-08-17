@@ -1,0 +1,24 @@
+@model DestinationMedia
+
+
+<div class="w-75 mx-auto">
+  <p>
+    <small>@Model.Location - @Model.ShortDescription</small>
+  </p>
+
+  @if (Model.Type == "Image")
+  {
+    <img class="shadow rounded" src="@Model.Src" alt="@Model.Location" width="100%">
+  }
+  else if (Model.Type == "Youtube Embed")
+  {
+    <iframe class="shadow rounded" title="@Model.ShortDescription" width="100%" height="800" src="@Model.Src"
+    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe>
+  }
+  else
+  {
+    <iframe class="shadow rounded" title="@Model.ShortDescription" src="@Model.Src" width="100%" height="800"
+    style="border: 0" allowfullscreen="" loading="lazy"></iframe>
+  }
+</div>

@@ -1,0 +1,44 @@
+@model DestinationMedia
+
+<h3 class="text-center">New DestinationMedia</h3>
+
+<form asp-controller="DestinationMedias" asp-action="Create" method="POST" class="w-50 mx-auto">
+  <div class="form-group">
+    <label asp-for="Location"></label>
+    <span class="text-danger font-weight-bold" asp-validation-for="Location"></span>
+    <input class="form-control" asp-for="Location" />
+  </div>
+
+  <div class="form-group">
+    <label asp-for="Src"></label>
+    <span class="text-danger font-weight-bold" asp-validation-for="Src"></span>
+    <input class="form-control" asp-for="Src" />
+  </div>
+
+  <div class="form-group">
+    <label asp-for="Type"></label>
+    <span class="text-danger font-weight-bold" asp-validation-for="Type"></span>
+    <select asp-for="Type" class="form-control">
+      <option value="Image">
+        Image
+      </option>
+      <option value="Youtube Embed">
+        Youtube Embed
+      </option>
+      <option value="Google Maps Embed">
+        Google Maps Embed
+      </option>
+      <option value="Website Embed">
+        Website Embed
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label asp-for="ShortDescription"></label>
+    <span class="text-danger font-weight-bold" asp-validation-for="ShortDescription"></span>
+    <textarea class="form-control" asp-for="ShortDescription"></textarea>
+  </div>
+
+  <button class="btn btn-outline-secondary">Submit</button>
+</form>

@@ -9,21 +9,21 @@ namespace BeltPrep.Models
         [Key]
         public int DestinationMediaId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "is required.")]
         [MinLength(2, ErrorMessage = "must be at least 2 characters.")]
         public string Location { get; set; }
 
-        [Required]
-        [Display(Name = "Url")]
+        [Required(ErrorMessage = "is required.")]
+        [Display(Name = "Media Url")]
         public string Src { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "is required.")]
         [Display(Name = "Short Description")]
         [MinLength(4, ErrorMessage = "must be at least 4 characters.")]
         [MaxLength(255, ErrorMessage = "must be no more than 255 characters.")]
         public string ShortDescription { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "is required.")]
         public string Type { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;

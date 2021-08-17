@@ -42,7 +42,7 @@ namespace BeltPrep.Controllers
         {
             if (isLoggedIn)
             {
-                return RedirectToAction("All", "Posts");
+                return RedirectToAction("All", "Trips");
             }
 
             return View("Index");
