@@ -21,7 +21,7 @@ namespace BeltPrep.Models
         [Display(Name = "Trip Date")]
         [DataType(DataType.Date)]
         // TODO: Future Date validation
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;

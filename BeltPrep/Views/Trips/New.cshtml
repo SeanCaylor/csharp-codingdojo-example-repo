@@ -1,1 +1,25 @@
-<h1>New Trip</h1>
+@model Trip
+
+<h3 class="text-center">New Trip</h3>
+
+<form asp-controller="Trips" asp-action="Create" method="POST" class="w-50 mx-auto">
+  <div class="form-group">
+    <label asp-for="Name"></label>
+    <span class="text-danger font-weight-bold" asp-validation-for="Name"></span>
+    <input class="form-control" asp-for="Name" />
+  </div>
+
+  <div class="form-group">
+    <label asp-for="Description"></label>
+    <span class="text-danger font-weight-bold" asp-validation-for="Description"></span>
+    <textarea class="form-control" asp-for="Description"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label asp-for="Date"></label>
+    <span class="text-danger font-weight-bold" asp-validation-for="Date"></span>
+    <input class="form-control" asp-for="Date" />
+  </div>
+
+  <button class="btn btn-outline-secondary">Submit</button>
+</form>

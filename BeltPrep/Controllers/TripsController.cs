@@ -59,5 +59,26 @@ namespace BeltPrep.Controllers
             return View("New");
         }
 
+        [HttpPost("/trips/create")]
+        public IActionResult Create(Trip newTrip)
+        {
+
+            if (ModelState.IsValid == false)
+            {
+                // Back to form to display errors.
+                return View("New");
+            }
+
+            if (newTrip.Date <= DateTime.Now)
+            {
+                ModelState.AddModelError("Date", "must be in the future.");
+                return View("New");
+            }
+
+            newTrip.UserId = (int)uid;
+            db.Trips.Add(newTrip);
+            db.SaveChanges();
+            return RedirectToAction("All");
+        }
     }
 }
