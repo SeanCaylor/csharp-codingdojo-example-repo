@@ -80,7 +80,7 @@ namespace BeltPrep.Controllers
 
             HttpContext.Session.SetInt32("UserId", newUser.UserId);
             HttpContext.Session.SetString("FirstName", newUser.FirstName);
-            return RedirectToAction("All", "Posts");
+            return RedirectToAction("All", "Trips");
         }
 
         [HttpPost("/login")]
@@ -117,7 +117,7 @@ namespace BeltPrep.Controllers
 
             HttpContext.Session.SetInt32("UserId", dbUser.UserId);
             HttpContext.Session.SetString("FirstName", dbUser.FirstName);
-            return RedirectToAction("All", "Posts");
+            return RedirectToAction("All", "Trips");
         }
 
         [HttpPost("/logout")]
