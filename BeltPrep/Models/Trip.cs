@@ -30,5 +30,8 @@ namespace BeltPrep.Models
 
         Navigation properties are null unless you use .Include / .ThenInclude
         */
+        public int UserId { get; set; } // 1 User : Many created trips.
+        public User CreatedBy { get; set; }
+
     }
 }

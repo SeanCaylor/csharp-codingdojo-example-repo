@@ -43,7 +43,9 @@ namespace BeltPrep.Models
         Navigation properties are null unless you use .Include / .ThenInclude
         */
 
-        // Navigation Prop: 1 User : Many Post
+        public List<Trip> CreatedTrips { get; set; } // 1 User : Many Trip
+        public List<DestinationMedia> CreatedDestinations { get; set; } // 1 User : Many DestinationMedia
+
 
         // Methods
         public string FullName()
