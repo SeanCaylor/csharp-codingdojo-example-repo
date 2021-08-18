@@ -9,6 +9,18 @@
     </small>
   </p>
 
+  @if (Context.Session.GetInt32("UserId") == Model.UserId)
+  {
+    <div class="row">
+      <a asp-controller="Trips" asp-action="Edit" asp-route-tripId="@Model.TripId" class="btn btn-sm btn-outline-warning">
+        Edit
+      </a>
+      <form asp-controller="Trips" asp-action="Delete" asp-route-tripId="@Model.TripId" method="POST">
+        <button class="btn btn-sm btn-outline-danger">Delete</button>
+      </form>
+    </div>
+  }
+
   @* To pass the current Trip Id from this page into the partial we need to add
     it to the model that the partial will receive
     OR put it the ViewBag instead of passing in a model to the partial. *@
@@ -24,5 +36,15 @@
   @foreach (TripDestination tripDest in Model.TripDestinations)
   {
     <partial name="_DestinationMedia" model="@tripDest.DestinationMedia"></partial>
+
+    @if (Context.Session.GetInt32("UserId") == Model.UserId)
+    {
+      <div class="mt-1">
+        <form asp-controller="Trips" asp-action="RemoveDestination" asp-route-tripId="@Model.TripId"
+      asp-route-destinationMediaId="@tripDest.DestinationMediaId" method="POST">
+          <button class="btn btn-sm btn-outline-danger">Remove From Trip</button>
+        </form>
+      </div>
+    }
   }
 </div>

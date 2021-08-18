@@ -1,6 +1,6 @@
 @model TripDestination
 
-<form asp-controller="Trips" asp-action="AddDestination" asp-route-tripId="@Model.TripId" class="w-100">
+<form asp-controller="Trips" asp-action="AddDestination" asp-route-tripId="@Model.TripId" method="POST" class="w-100">
 
   <select asp-for="DestinationMediaId">
     @foreach (DestinationMedia dm in ViewBag.DestinationsToAdd)

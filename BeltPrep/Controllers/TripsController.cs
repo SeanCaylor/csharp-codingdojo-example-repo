@@ -119,7 +119,93 @@ namespace BeltPrep.Controllers
             newTripDest.TripId = tripId;
             db.TripDestinations.Add(newTripDest);
             db.SaveChanges();
-            //                                 new { paramName = value, param2 = val2 }
+            // The method needs params:        new { paramName = value, param2 = val2 }
+            return RedirectToAction("Details", new { tripId = tripId });
+        }
+
+        [HttpPost("/trips/{tripId}/remove-destination/{destinationMediaId}")]
+        public IActionResult RemoveDestination(int tripId, int destinationMediaId)
+        {
+            if (!isLoggedIn)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            TripDestination tripDest = db.TripDestinations.FirstOrDefault(td => td.TripId == tripId && td.DestinationMediaId == destinationMediaId);
+
+            if (tripDest != null)
+            {
+                db.TripDestinations.Remove(tripDest);
+                db.SaveChanges();
+            }
+
+            // The method needs params:        new { paramName = value, param2 = val2 }
+            return RedirectToAction("Details", new { tripId = tripId });
+        }
+
+        [HttpPost("/trips/{tripId}/delete")]
+        public IActionResult Delete(int tripId)
+        {
+
+            Trip trip = db.Trips.FirstOrDefault(t => t.TripId == tripId);
+
+            // If trip not found OR user is not the creator, redirect them.
+            if (trip == null || trip.UserId != uid)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            db.Trips.Remove(trip);
+            db.SaveChanges();
+            return RedirectToAction("All");
+        }
+
+        [HttpGet("/trips/{tripId}/edit")]
+        public IActionResult Edit(int tripId)
+        {
+
+            Trip trip = db.Trips.FirstOrDefault(t => t.TripId == tripId);
+
+            // If trip not found OR user is not the creator, redirect them.
+            if (trip == null || trip.UserId != uid)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View("Edit", trip);
+        }
+
+        [HttpPost("/trips/{tripId}/update")]
+        public IActionResult Update(int tripId, Trip updatedTrip)
+        {
+            if (updatedTrip.Date <= DateTime.Now)
+            {
+                ModelState.AddModelError("Date", "must be in the future.");
+            }
+
+            if (ModelState.IsValid == false)
+            {
+                updatedTrip.TripId = tripId;
+                // The Edit view needs a Trip model passed just like the 
+                // Edit method does.
+                return View("Edit", updatedTrip);
+            }
+
+            Trip dbTrip = db.Trips.FirstOrDefault(t => t.TripId == tripId);
+
+            if (dbTrip == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            dbTrip.UpdatedAt = DateTime.Now;
+            dbTrip.Name = updatedTrip.Name;
+            dbTrip.Description = updatedTrip.Description;
+            dbTrip.Date = updatedTrip.Date;
+            db.Trips.Update(dbTrip);
+            db.SaveChanges();
+
+            // The method needs params:        new { paramName = value, param2 = val2 }
             return RedirectToAction("Details", new { tripId = tripId });
         }
     }
