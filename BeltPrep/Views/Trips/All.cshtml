@@ -7,7 +7,7 @@
   <div class="text-center w-75 mx-auto">
     <hr>
     <h4>
-      @trip.Name
+      <a asp-controller="Trips" asp-action="Details" asp-route-tripId="@trip.TripId">@trip.Name</a>
     </h4>
     <p>@trip.Description</p>
   </div>

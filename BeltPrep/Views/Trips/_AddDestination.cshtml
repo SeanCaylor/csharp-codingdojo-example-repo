@@ -1,0 +1,12 @@
+@model TripDestination
+
+<form asp-controller="Trips" asp-action="AddDestination" asp-route-tripId="@Model.TripId" class="w-100">
+
+  <select asp-for="DestinationMediaId">
+    @foreach (DestinationMedia dm in ViewBag.DestinationsToAdd)
+    {
+      <option value="@dm.DestinationMediaId">@dm.Location - @dm.ShortDescription</option>
+    }
+  </select>
+  <button class="btn btn-sm btn-outline-success">Add Destination</button>
+</form>

@@ -1,0 +1,28 @@
+@model Trip
+
+<div class="w-100 mx-auto">
+  <h2 class="text-center">@Model.Name</h2>
+  <p class="text-center">@Model.Date - @Model.Description</p>
+  <p class="text-center">
+    <small>
+      Created By: @Model.CreatedBy.FullName()
+    </small>
+  </p>
+
+  @* To pass the current Trip Id from this page into the partial we need to add
+    it to the model that the partial will receive
+    OR put it the ViewBag instead of passing in a model to the partial. *@
+  @{
+    TripDestination newTripDestination = new TripDestination()
+    {
+      TripId = Model.TripId
+    };
+  }
+  <partial name="_AddDestination" model="@newTripDestination"></partial>
+  <hr>
+
+  @foreach (TripDestination tripDest in Model.TripDestinations)
+  {
+    <partial name="_DestinationMedia" model="@tripDest.DestinationMedia"></partial>
+  }
+</div>

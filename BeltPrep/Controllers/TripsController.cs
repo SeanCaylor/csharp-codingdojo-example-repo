@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using BeltPrep.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace BeltPrep.Controllers
 {
@@ -81,6 +82,45 @@ namespace BeltPrep.Controllers
             db.Trips.Add(newTrip);
             db.SaveChanges();
             return RedirectToAction("All");
+        }
+
+        [HttpGet("/trips/{tripId}")]
+        public IActionResult Details(int tripId)
+        {
+            if (!isLoggedIn)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Trip trip = db.Trips
+                // .Include is always giving you the entity from the table
+                // being queried, for you to include a property from that entity.
+                .Include(trip => trip.CreatedBy)
+                .Include(trip => trip.TripDestinations)
+                // .ThenInclude is always giving you the datatype of what was
+                // just previously included so you can include a property on
+                // the entity that was just included.
+                .ThenInclude(tripDest => tripDest.DestinationMedia)
+                .FirstOrDefault(trip => trip.TripId == tripId);
+
+            if (trip == null)
+            {
+                return RedirectToAction("New");
+            }
+
+            ViewBag.DestinationsToAdd = db.DestinationMedias.ToList();
+
+            return View("Details", trip);
+        }
+
+        [HttpPost("/trips/{tripId}/add-destination")]
+        public IActionResult AddDestination(int tripId, TripDestination newTripDest)
+        {
+            newTripDest.TripId = tripId;
+            db.TripDestinations.Add(newTripDest);
+            db.SaveChanges();
+            //                                 new { paramName = value, param2 = val2 }
+            return RedirectToAction("Details", new { tripId = tripId });
         }
     }
 }
