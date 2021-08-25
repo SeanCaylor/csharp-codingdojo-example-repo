@@ -79,3 +79,37 @@
 ## [Week 3 - Binary Search Tree](../data_structures/BinarySearchTree.js)
 
 - [BST Intro](../data_structures/BinarySearchTree.md)
+
+## Week 4 - Min Heap & Linked Lists Part 2
+
+### W4 Mon - [SinglyLinkedList](../data_structures/SinglyLinkedList.js)
+
+### W4 Tue - [DoublyLinkedList](../data_structures/DoublyLinkedList.js)
+
+```js
+/**
+ * Creates a new node and adds it at the front of this list.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {any} data The data for the new node.
+ * @returns {DoublyLinkedList} This list.
+ */
+insertAtFront(data) {}
+
+/**
+ * Creates a new node and adds it at the back of this list.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {any} data The data for the new node.
+ * @returns {DoublyLinkedList} This list.
+ */
+insertAtBack(data) {}
+
+/**
+ * Removes the middle node in this list.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @returns {any} The data of the removed node.
+ */
+removeMiddleNode() {}
+```
