@@ -90,4 +90,4 @@
 
 ### W4 Thur - [Heap.js](../data_structures/Heap.js)
 
-- Review and provide [Heaps Intro](../data_structures/Heaps.md)
+- [Heaps Intro](../data_structures/Heaps.md)
